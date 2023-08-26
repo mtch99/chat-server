@@ -4,7 +4,7 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 // A schema is a collection of type definitions (hence "typeDefs")
 // that together define the "shape" of queries that are executed against
 // your data.
-const typeDefs = `#graphql
+export const typeDefs = `#graphql
 
     type Message {
         content: String
@@ -17,6 +17,11 @@ const typeDefs = `#graphql
     type Mutation{
         createMessage(input: createMessageInput): String
     }
+
+    type Subscription{
+        onNewMessage: String
+    }
+
 
     input createMessageInput {
         content: String
@@ -52,6 +57,8 @@ const server = new ApolloServer({
     typeDefs,
     resolvers
 })
+
+// server.
 
 await startStandaloneServer(server, {
     listen: { port: 4000 },

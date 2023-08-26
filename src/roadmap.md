@@ -8,13 +8,13 @@
             - [ ] notify error listeners
             - [ ] notify success listeners
     - Tasks:
-        - [ ] Create a mongodb client
+        - [x] Create a mongodb client
         - [x] Containerize the client
             - [x] Import mongodb servcice docker-compose file
             - [x] Spin up mongo service and creat a Database called chat
-        - [ ] Create ChatDatabase Client class
-            - [ ] Create empty db request methods
-            - [ ] Look for a good ORM and implement 
+        - [x] Create ChatDatabase Client class
+
+
 
 
 - [ ] Create a publisher 
@@ -27,6 +27,15 @@
             WebSocketServer:
             - [ ] Establish communication with client apps
             - [ ] Delegate responsablity for webscket events handling to its creator
-            WebsocketHandler:
-            - [ ] Handle websocket events
-
+            WebSocketHandler:
+            - [ ] Handle websocket newConnection in the SubscriptionHandler
+                - [x] Authentication
+                - [ ] Subscription Validation
+                    - [ ] Validate Subscription query
+                        - [ ] get subscription field
+                            - [ ] Take a look at tes.js
+                    - [ ] Register subscription
+                        - [ ] Create Subscription class with socket and Subscription field
+                        - [ ] Create a fieldToPublisherMap
+                        - [ ] Register the socket in a 
+ 

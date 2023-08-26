@@ -25,7 +25,10 @@
   "homepage": "https://github.com/mtch99/chat-server#readme",
   "dependencies": {
     "@apollo/server": "^4.9.0",
-    "graphql": "^16.7.1"
+    "graphql": "^16.7.1",
+    "graphql-tools": "^9.0.0",
+    "js-yaml": "^4.1.0",
+    "mongodb": "5.7"
   },
   "devDependencies": {
     "eslint": "^8.46.0"
