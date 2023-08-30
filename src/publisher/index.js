@@ -1,5 +1,10 @@
+//@ts-check
+
+/**
+ * Abstract Publisher
+ */
 export class APublisher{
-    /**@type {Map<string, Subscriber[]>} */
+    /**@type {Map<string, Map<string, import("./interface").ISubscriber>} */
     subscribersPerChannel = new Map()
 
 
@@ -7,11 +12,33 @@ export class APublisher{
      * Determine subscription channel
      * Store Subscriber 
      * Set its unsubscribe method
-     * @param {*} subsription 
+     * @param {string} channel 
+     * @param {(data: any) => void} onData 
+     * @return {import("./interface").ISubscriber} 
      */
-    static register(subscription){
+    register(channel, onData){
+        const id = crypto.randomUUID()
 
+        /** @type {import("./interface").ISubscriber} */
+        const subscriber = {
+            id,
+            subscription: undefined,
+            receive: (data) => onData(data),
+            endSubscription: () => this.endSubscription(id, channel)
+        }
+
+        return subscriber
     }
+
+
+    /**
+     * @param {string} id  
+     * @param {string} channel 
+    */
+    endSubscription(id, channel){
+        this.subscribersPerChannel.get(channel)?.delete(id)
+    }
+
 
     /**
      * 
@@ -31,7 +58,3 @@ export class APublisher{
 
     }
 }
-
-
-
-// TODO: Define Subscription claa
