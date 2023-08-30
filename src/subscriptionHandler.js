@@ -4,8 +4,6 @@
 import * as net from "node:net"
 
 
-
-
 /**
  * @param {net.Socket} socket  
  * @returns
@@ -13,7 +11,7 @@ import * as net from "node:net"
  * */
 async function authHandler(socket){
     const maxDelay = 5000
-    /**@type {import('./types').IServerMessage<"AUTHENTICATION_REQUEST">} */
+    /**@type {import('./interface').IServerMessage<"AUTHENTICATION_REQUEST">} */
     const authenticationRequest = {
         type: "AUTHENTICATION_REQUEST",
     }
@@ -46,8 +44,6 @@ async function authHandler(socket){
 }
 
 
-
-
 /**
  * TODO: Continue here
  * @param {*} socket 
@@ -55,7 +51,7 @@ async function authHandler(socket){
  */
 async function subscriptionHandler(socket, callback){
     const maxDelay = 5000
-    /**@type {import('./types').IServerMessage<"SUBSCRIPTION_REQUEST">} */
+    /**@type {import('./interface').IServerMessage<"SUBSCRIPTION_REQUEST">} */
     const subscriptionRequest = {
         type: "SUBSCRIPTION_REQUEST",
     }
@@ -80,16 +76,6 @@ async function subscriptionHandler(socket, callback){
 async function subscriptionResponseListener(data){
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 /** 
@@ -117,6 +103,7 @@ async function authResponseListener(data){
     return isSubscriberAuthorized(message)
 }
 
+
 /** 
  * @param {Buffer | string} data  
  * @returns {string}
@@ -127,7 +114,6 @@ function socketDataToString(data){
     else{dataStr = data.toString()}
     return dataStr
 }
-
 
 
 /**
@@ -147,7 +133,7 @@ function handleSubscriptionResponse(message, socket){
 /**
  * 
  * @param {string} message 
- * @returns {import("./types").IClientSubscriptionResponse | undefined} 
+ * @returns {import("./interface").IClientSubscriptionResponse | undefined} 
  */
 function parseSubscriptionMessage(message){
     const messageJson = JSON.parse(message);
@@ -166,11 +152,3 @@ function parseSubscriptionMessage(message){
 function getSubscriptionField(subscriptionQuery){
     return "true"
 }
-
-
-
-function registerSubscriber(field){
-
-}
-
-

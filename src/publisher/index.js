@@ -8,6 +8,12 @@ export class APublisher{
     subscribersPerChannel = new Map()
 
 
+    // TODO: initialize channel keys in subscribersPerChannel map
+    constructor(){
+
+    }
+
+
     /**
      * Determine subscription channel
      * Store Subscriber 
@@ -27,8 +33,30 @@ export class APublisher{
             endSubscription: () => this.endSubscription(id, channel)
         }
 
+        // Check that the channel exists
+        const channelExists = this.subscribersPerChannel.get(channel)?true:false
+        if(!channelExists){throw new Error("Channel not found")}
+
+        // Store subscriber
+        this.subscribersPerChannel.get(channel)?.set(id, subscriber)
+
         return subscriber
     }
+
+
+    /** 
+     * @param {string} channel  
+     * @param {any} data 
+     * */
+    publish(channel, data){
+        const subscribersMap = this.subscribersPerChannel.get(channel);
+        if(!subscribersMap){throw new Error("Channel not found")}
+
+        for(const [, subscriber] of subscribersMap){
+            subscriber.receive(data)
+        }
+    }
+
 
 
     /**
@@ -37,24 +65,5 @@ export class APublisher{
     */
     endSubscription(id, channel){
         this.subscribersPerChannel.get(channel)?.delete(id)
-    }
-
-
-    /**
-     * 
-     * @param {string} channel 
-     * @param {any} data 
-     */
-    send(channel, data){
-        const subscribers = this.subscribersPerChannel.get(channel) || []
-        for (const subscriber of subscribers){
-            subscriber.notify(data)
-        }
-    }
-
-
-    /** Every concrete instance implement this */
-    onNewData(){
-
     }
 }
