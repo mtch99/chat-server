@@ -1,3 +1,4 @@
+//@ts-check
 import { MongoClient } from "mongodb";
 
 
@@ -6,10 +7,12 @@ const mongoClientUrl = "mongodb://root:example@mongo:27017"
 const mongoClient = new MongoClient(mongoClientUrl)
 const chatDatabaseName = "chat"
 
-class ChatDatabaseClient {
+/**@implements {IDBCursor} */
+class ChatDatabase {
+
 
     _observer = {
-        onMessageCreated: (message) => {}
+        onMessageCreated: (message) => {throw new Error("Not implemented")}
     }
     database = mongoClient.db(chatDatabaseName)
     messageCollection = this.database.collection('messages')
@@ -22,6 +25,9 @@ class ChatDatabaseClient {
         }
         return messageList
     }
+
+
+
 
 
     async createMessage(message){
@@ -45,4 +51,5 @@ class ChatDatabaseClient {
     close(){mongoClient.close()}
 }
 
-export const client = new ChatDatabaseClient()
+
+export const client = new ChatDatabase()

@@ -149,6 +149,10 @@ function parseSubscriptionMessage(message){
  * @param {string} subscriptionQuery
  * @returns {string|undefined} 
  */
-function getSubscriptionField(subscriptionQuery){
-    return "true"
-}
+// function getSubscriptionField(subscriptionQuery){
+//     return "true"
+// }
+
+// var handleNewSocketConnection = function(socket){
+//     this.socket = socket
+// }
